@@ -11,9 +11,9 @@
   <link rel="apple-touch-icon" href="icon-180.png" />
   <style>
     :root{
-      --bg:#1c2128; --toolbar-bg:#262d36; --toolbar-border:#39414c;
-      --btn-bg:#313a45; --btn-active:#2e7d32; --btn-text:#e6e9ee;
-      --accent:#4caf50; --home:#2962ff; --away:#d50000; --danger:#c62828;
+      --bg:#161a20; --toolbar-bg:#1f242c; --group-bg:#171b21; --toolbar-border:#2f3742;
+      --btn-bg:#2b333d; --btn-hover:#37414d; --btn-active:#2f7d4a; --btn-text:#e8ebef;
+      --muted:#9aa3ad; --accent:#3fae60; --home:#2f6bff; --away:#e5453d; --danger:#c0392b;
     }
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--btn-text);
@@ -22,34 +22,41 @@
     #app{display:flex;flex-direction:column;height:100%}
 
     /* 工具栏 */
-    #toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 10px;
+    #toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:7px 9px;
       background:var(--toolbar-bg);border-bottom:1px solid var(--toolbar-border);
-      padding-top:max(8px,env(safe-area-inset-top))}
-    .tb-group{display:flex;align-items:center;gap:4px;padding-right:10px;border-right:1px solid var(--toolbar-border)}
-    .tb-group:last-child{border-right:none}
-    .tb-group.spacer{margin-left:auto}
+      padding-top:max(7px,env(safe-area-inset-top))}
+    .tb-group{display:flex;align-items:center;gap:3px;padding:3px 5px;
+      background:var(--group-bg);border:1px solid var(--toolbar-border);border-radius:11px}
+    .tb-group.spacer{background:none;border:none;padding:0}
     .team-bar{display:contents}
     .team-bar.collapsed{display:none}
-    .tb-label{font-size:12px;opacity:.7;margin-right:2px}
-    .tb-label.home-dot::before,.tb-label.away-dot::before{content:"";display:inline-block;width:9px;height:9px;
+    .tb-label{font-size:11px;color:var(--muted);margin:0 2px 0 1px;font-weight:600;letter-spacing:.01em}
+    .tb-label.home-dot::before,.tb-label.away-dot::before{content:"";display:inline-block;width:8px;height:8px;
       border-radius:50%;margin-right:4px;vertical-align:middle}
     .tb-label.home-dot::before{background:var(--home)}
     .tb-label.away-dot::before{background:var(--away)}
-    .tb-btn{appearance:none;border:1px solid var(--toolbar-border);background:var(--btn-bg);color:var(--btn-text);
-      font-size:14px;padding:7px 11px;border-radius:8px;cursor:pointer;line-height:1;min-height:36px}
-    .tb-btn.small{padding:6px 8px;font-size:12px;min-height:32px}
-    .tb-btn:hover{background:#3a444f}
-    .tb-btn.active{background:var(--btn-active);border-color:var(--accent)}
+    .tb-btn{appearance:none;border:1px solid transparent;background:var(--btn-bg);color:var(--btn-text);
+      font-size:13px;padding:6px 9px;border-radius:7px;cursor:pointer;line-height:1;min-height:32px;
+      white-space:nowrap;transition:background .12s,border-color .12s,transform .05s}
+    .tb-btn.small{padding:5px 7px;font-size:12px;min-height:30px}
+    .tb-btn:hover{background:var(--btn-hover)}
+    .tb-btn:active{transform:scale(.95)}
+    .tb-btn.active{background:var(--btn-active);border-color:var(--accent);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
     .tb-btn.primary{background:var(--btn-active);border-color:var(--accent)}
-    .tb-btn.danger{background:var(--danger);border-color:#b71c1c}
-    .tb-select{background:var(--btn-bg);color:var(--btn-text);border:1px solid var(--toolbar-border);
-      border-radius:8px;padding:7px 8px;font-size:14px;min-height:36px;max-width:150px}
-    .tb-select.sm{max-width:96px;font-size:12px}
-    .tb-check{font-size:13px;display:flex;align-items:center;gap:4px}
-    .color-swatches{display:inline-flex;gap:4px;align-items:center}
-    .swatch{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer}
-    .swatch.active{border-color:#fff;box-shadow:0 0 0 1px #000}
-    #draw-tools.disabled{opacity:.35;pointer-events:none}
+    .tb-btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+    .tb-btn.danger:hover{background:#d4452f}
+    .tb-select{background:var(--btn-bg);color:var(--btn-text);border:1px solid transparent;
+      border-radius:7px;padding:6px 7px;font-size:13px;min-height:32px;max-width:138px}
+    .tb-select:focus{outline:none;border-color:var(--accent)}
+    .tb-select.sm{max-width:76px;font-size:12px}
+    .tb-check{font-size:12px;display:flex;align-items:center;gap:4px;padding:0 1px}
+    .color-swatches{display:inline-flex;gap:4px;align-items:center;padding:0 1px}
+    .swatch{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);cursor:pointer;
+      transition:transform .1s}
+    .swatch:hover{transform:scale(1.1)}
+    .swatch.active{border-color:#fff;box-shadow:0 0 0 2px #000;transform:scale(1.12)}
+    #draw-tools.disabled{opacity:.4;pointer-events:none}
 
     /* 画布 */
     #board-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px}
@@ -173,9 +180,9 @@
           <select id="away-formation" class="tb-select sm" title="客队阵型"></select>
         </div>
         <div class="tb-group">
-          <button class="tb-btn" id="reset-board" title="按阵型重新摆位">重置棋子</button>
-          <button class="tb-btn" id="add-team" title="自定义球队">+ 自定义队</button>
-          <button class="tb-btn" id="toggle-ball" title="放置/移除足球">⚽ 球</button>
+          <button class="tb-btn small" id="reset-board" title="按阵型重新摆位">重置</button>
+          <button class="tb-btn small" id="add-team" title="自定义球队">+ 自定义</button>
+          <button class="tb-btn small" id="toggle-ball" title="放置/移除足球">⚽ 球</button>
         </div>
       </div>
     </header>
