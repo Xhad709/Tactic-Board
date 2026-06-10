@@ -1,6 +1,6 @@
 {
-  "name": "足球战术板",
-  "short_name": "战术板",
+  "name": "Tactic Board",
+  "short_name": "Tactic Board",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
