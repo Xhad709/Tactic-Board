@@ -229,7 +229,11 @@ table.wc-3rd{border-collapse:collapse;font-size:12px;min-width:520px}
 /* bracket */
 #wc-bracket-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
 #wc-bracket{display:flex;gap:16px;align-items:stretch;min-width:max-content}
-.wc-col{display:flex;flex-direction:column;justify-content:space-around;gap:10px;min-width:172px}
+.wc-col{display:flex;flex-direction:column;min-width:166px}
+.wc-col-body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around;gap:10px}
+.wc-col-center{position:relative;min-width:180px}
+.wc-col-center .wc-col-body{justify-content:center}
+.wc-col-center .center-third{position:absolute;left:0;right:0;bottom:0}
 .wc-col .col-h{font-size:11px;color:var(--muted);font-weight:700;text-align:center;margin-bottom:2px}
 .wc-tie{background:var(--group-bg);border:1px solid var(--toolbar-border);border-radius:8px;overflow:hidden}
 .wc-tie .num{font-size:9px;color:var(--muted);padding:1px 7px;background:rgba(255,255,255,.03);display:flex;justify-content:space-between}
@@ -1438,12 +1442,17 @@ var KO={
  104:{a:{t:"w",m:101},b:{t:"w",m:102}}
 };
 var KO_SEQ=[]; for(var n=73;n<=104;n++) KO_SEQ.push(n);
+/* 左右半区布局：左半 32→16→8→半 汇向中央决赛，右半镜像 */
 var COLS=[
- {name:"32强",nums:[74,77,73,75,83,84,81,82,76,78,79,80,86,88,85,87]},
- {name:"16强",nums:[89,90,93,94,91,92,95,96]},
- {name:"8强",nums:[97,98,99,100]},
- {name:"半决赛",nums:[101,102]},
- {name:"决赛",nums:[104]}
+ {name:"32强",nums:[74,77,73,75,83,84,81,82]},
+ {name:"16强",nums:[89,90,93,94]},
+ {name:"8强",nums:[97,98]},
+ {name:"半决赛",nums:[101]},
+ {name:"决赛",nums:[104],center:true},
+ {name:"半决赛",nums:[102]},
+ {name:"8强",nums:[99,100]},
+ {name:"16强",nums:[91,92,95,96]},
+ {name:"32强",nums:[76,78,79,80,86,88,85,87]}
 ];
 
 /* ---------- 小组第三名 -> 32强落位（官方 495 组合表） ---------- */
@@ -1628,34 +1637,28 @@ function sideHTML(m,sideKey,teamObj,otherObj,R){
   var lose= m.decided && m.loser && m.loser.id===teamObj.id;
   return '<div class="side'+(win?" win":"")+(lose?" lose":"")+'"><span class="nm">'+label+'</span>'+scInput(m.mk,m.A.id,m.B.id,sideKey,disabled)+'</div>';
 }
+function tieHTML(R,num){
+  var m=R.ko[num], isFinal=(num===104), isThird=(num===103);
+  var changed=isOvReal(m.mk,m.A.id,m.B.id);
+  var lab=isFinal?' · 决赛':(isThird?' · 季军赛':'');
+  var c='<div class="wc-tie'+(isFinal?" final":"")+(isThird?" third-place":"")+'"><div class="num"><span>M'+num+lab+'</span>'+(changed?'<span class="ovb">已改</span>':"")+'</div>';
+  c+=sideHTML(m,"h",m.A,m.B,R)+sideHTML(m,"a",m.B,m.A,R);
+  var s=(m.A.id&&m.B.id)?numScore(m.mk,m.A.id,m.B.id):null;
+  if(s && s.H===s.A){
+    c+='<div class="pk">点球：<button data-pkmk="'+m.mk+'" data-pk="h" class="'+(m.pkw==="h"?"on":"")+'">'+(m.A.id?nm(m.A.id):"上")+'</button><button data-pkmk="'+m.mk+'" data-pk="a" class="'+(m.pkw==="a"?"on":"")+'">'+(m.B.id?nm(m.B.id):"下")+'</button></div>';
+  }
+  return c+'</div>';
+}
 function renderBracket(R){
   var wrap="";
   COLS.forEach(function(col){
-    var c='<div class="wc-col"><div class="col-h">'+col.name+'</div>';
-    col.nums.forEach(function(num){
-      var m=R.ko[num], isFinal=(num===104);
-      var changed=isOvReal(m.mk,m.A.id,m.B.id);
-      c+='<div class="wc-tie'+(isFinal?" final":"")+'"><div class="num"><span>M'+num+(isFinal?' · 决赛':"")+'</span>'+(changed?'<span class="ovb">已改</span>':"")+'</div>';
-      c+=sideHTML(m,"h",m.A,m.B,R);
-      c+=sideHTML(m,"a",m.B,m.A,R);
-      // 点球：双方已知且比分相等
-      var s=(m.A.id&&m.B.id)?numScore(m.mk,m.A.id,m.B.id):null;
-      if(s && s.H===s.A){
-        c+='<div class="pk">点球：<button data-pkmk="'+m.mk+'" data-pk="h" class="'+(m.pkw==="h"?"on":"")+'">'+(m.A.id?nm(m.A.id):"上")+'</button><button data-pkmk="'+m.mk+'" data-pk="a" class="'+(m.pkw==="a"?"on":"")+'">'+(m.B.id?nm(m.B.id):"下")+'</button></div>';
-      }
-      c+='</div>';
-    });
-    c+='</div>';
-    wrap+=c;
-    if(col.name==="决赛"){
-      // 季军赛附在决赛列下方
-      var m3=R.ko[103];
-      wrap=wrap.replace(/<\/div>$/,"");
-      wrap+='<div class="wc-tie third-place"><div class="num"><span>M103 · 季军赛</span>'+(isOvReal(m3.mk,m3.A.id,m3.B.id)?'<span class="ovb">已改</span>':"")+'</div>'+sideHTML(m3,"h",m3.A,m3.B,R)+sideHTML(m3,"a",m3.B,m3.A,R);
-      var s3=(m3.A.id&&m3.B.id)?numScore(m3.mk,m3.A.id,m3.B.id):null;
-      if(s3&&s3.H===s3.A){ wrap+='<div class="pk">点球：<button data-pkmk="'+m3.mk+'" data-pk="h" class="'+(m3.pkw==="h"?"on":"")+'">'+(m3.A.id?nm(m3.A.id):"上")+'</button><button data-pkmk="'+m3.mk+'" data-pk="a" class="'+(m3.pkw==="a"?"on":"")+'">'+(m3.B.id?nm(m3.B.id):"下")+'</button></div>'; }
-      wrap+='</div></div>';
+    if(col.center){   // 中央：决赛垂直居中，标题置顶、季军赛固定在底部
+      wrap+='<div class="wc-col wc-col-center"><div class="col-h">'+col.name+'</div><div class="wc-col-body">'+tieHTML(R,104)+'</div><div class="center-third">'+tieHTML(R,103)+'</div></div>';
+      return;
     }
+    wrap+='<div class="wc-col"><div class="col-h">'+col.name+'</div><div class="wc-col-body">';
+    col.nums.forEach(function(num){ wrap+=tieHTML(R,num); });
+    wrap+='</div></div>';
   });
   document.getElementById("wc-bracket").innerHTML=wrap;
 }
