@@ -1,7 +1,7 @@
 /* 离线缓存（联网优先）：
    - 有网时：总是拉取最新文件并更新缓存（所以更新会自动生效）
    - 没网时：回退到缓存，保证可离线使用 */
-const CACHE = "tb-v2";
+const CACHE = "tb-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {

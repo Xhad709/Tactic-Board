@@ -168,11 +168,103 @@
     .intro-item .ii-ico{font-size:20px;flex:0 0 26px;text-align:center;margin-top:1px}
     .intro-item b{display:block;font-size:14px;margin-bottom:1px}
     .intro-item u{text-decoration:none;color:var(--accent);font-weight:600}
+  
+/* ===== WC-BRACKET CSS ===== */
+/* view switching */
+#app.bracket-mode #toolbar .tb-group:not(.view-switch){display:none !important}
+#app.bracket-mode #board-wrap{display:none}
+#bracket-view{display:none}
+#app.bracket-mode #bracket-view{display:flex}
+#bracket-view{flex:1;min-height:0;flex-direction:column;background:var(--bg);color:var(--btn-text);font-size:13px;overflow:hidden}
+.view-switch{order:-1}
+
+/* sub toolbar */
+#wc-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 9px;background:var(--toolbar-bg);border-bottom:1px solid var(--toolbar-border)}
+#wc-bar .sep{flex:1 1 12px}
+#wc-status{font-size:11px;color:var(--muted);white-space:nowrap}
+#wc-scroll{flex:1;min-height:0;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:16px;-webkit-overflow-scrolling:touch}
+
+#wc-banner{font-size:12px;color:#ffd479;background:rgba(255,212,121,.08);border:1px solid rgba(255,212,121,.25);border-radius:8px;padding:6px 10px}
+#wc-banner.hidden{display:none}
+.wc-h{font-size:14px;font-weight:700;margin:0 0 8px;opacity:.92}
+
+/* groups */
+#wc-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(286px,1fr));gap:10px}
+.wc-grp{background:var(--group-bg);border:1px solid var(--toolbar-border);border-radius:10px;padding:8px 9px}
+.wc-grp h4{margin:0 0 6px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.wc-grp h4 .tag{font-size:10px;color:var(--muted);font-weight:600}
+table.wc-std{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:7px}
+.wc-std th{font-weight:600;color:var(--muted);font-size:10px;text-align:center;padding:2px 2px}
+.wc-std td{padding:3px 2px;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+.wc-std td.nm{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px}
+.wc-std tr.q1 td{background:rgba(63,174,96,.16)}
+.wc-std tr.q3 td{background:rgba(255,212,121,.12)}
+.wc-std tr.q3.adv td{background:rgba(63,174,96,.10)}
+.wc-std .pts{font-weight:800}
+.wc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;border:1px solid rgba(255,255,255,.25)}
+.wc-mini{font-size:9px;color:#7ee2a0;margin-left:4px}
+
+/* fixtures */
+.wc-fx{display:flex;flex-direction:column;gap:3px}
+.wc-fx .row{display:grid;grid-template-columns:1fr 30px 8px 30px 1fr;align-items:center;gap:3px;font-size:12px}
+.wc-fx .row .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-fx .row .t.h{text-align:right}
+.wc-fx .row .t.win{font-weight:800;color:#7ee2a0}
+.wc-fx .dash{color:var(--muted);text-align:center}
+input.wc-sc{width:100%;height:26px;text-align:center;border-radius:6px;border:1px solid var(--toolbar-border);background:var(--btn-bg);color:var(--btn-text);font-size:13px;padding:0;-moz-appearance:textfield}
+input.wc-sc::-webkit-outer-spin-button,input.wc-sc::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input.wc-sc:focus{outline:none;border-color:var(--accent)}
+input.wc-sc.ov{border-color:#3f7bff;color:#9cc1ff}
+input.wc-sc:disabled{opacity:.35}
+
+/* thirds */
+#wc-thirds-body{overflow-x:auto}
+table.wc-3rd{border-collapse:collapse;font-size:12px;min-width:520px}
+.wc-3rd th{color:var(--muted);font-size:10px;font-weight:600;padding:3px 8px;text-align:left;white-space:nowrap}
+.wc-3rd td{padding:3px 8px;border-top:1px solid rgba(255,255,255,.06);white-space:nowrap}
+.wc-3rd tr.adv td{background:rgba(63,174,96,.16)}
+.wc-3rd tr.adv .q{color:#7ee2a0;font-weight:700}
+.wc-3rd .out{color:var(--muted)}
+
+/* bracket */
+#wc-bracket-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+#wc-bracket{display:flex;gap:16px;align-items:stretch;min-width:max-content}
+.wc-col{display:flex;flex-direction:column;justify-content:space-around;gap:10px;min-width:172px}
+.wc-col .col-h{font-size:11px;color:var(--muted);font-weight:700;text-align:center;margin-bottom:2px}
+.wc-tie{background:var(--group-bg);border:1px solid var(--toolbar-border);border-radius:8px;overflow:hidden}
+.wc-tie .num{font-size:9px;color:var(--muted);padding:1px 7px;background:rgba(255,255,255,.03);display:flex;justify-content:space-between}
+.wc-tie .num .ovb{color:#3f7bff}
+.wc-tie .side{display:grid;grid-template-columns:1fr 30px;align-items:center;gap:6px;padding:5px 7px}
+.wc-tie .side + .side{border-top:1px solid rgba(255,255,255,.06)}
+.wc-tie .side .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;display:flex;align-items:center}
+.wc-tie .side.win .nm{font-weight:800;color:#7ee2a0}
+.wc-tie .side.lose .nm{opacity:.55}
+.wc-tie .side .nm.tbd{color:var(--muted);font-style:italic}
+.wc-tie .side .prov{color:#ffd479;font-style:normal;margin-left:3px;font-size:10px}
+.wc-tie .pk{font-size:10px;color:var(--muted);padding:3px 7px;display:flex;gap:6px;align-items:center;border-top:1px solid rgba(255,255,255,.06)}
+.wc-tie .pk button{font-size:10px;padding:2px 7px;border-radius:5px;border:1px solid var(--toolbar-border);background:var(--btn-bg);color:var(--btn-text);cursor:pointer}
+.wc-tie .pk button.on{background:var(--btn-active);border-color:var(--accent);color:#fff}
+.wc-tie.final{border-color:var(--accent);box-shadow:0 0 0 1px rgba(63,174,96,.3)}
+.wc-tie.third-place{border-style:dashed}
+
+/* modal */
+.wc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:300}
+.wc-modal-bg.hidden{display:none}
+.wc-modal{background:var(--toolbar-bg);border:1px solid var(--toolbar-border);border-radius:12px;padding:18px;width:min(420px,92vw)}
+.wc-modal h3{margin:0 0 12px;font-size:16px}
+.wc-modal input[type=text]{width:100%;background:var(--btn-bg);color:var(--btn-text);border:1px solid var(--toolbar-border);border-radius:8px;padding:9px;font-size:14px}
+.wc-modal .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
   </style>
 </head>
 <body>
   <div id="app">
     <header id="toolbar">
+<!-- WC-BRACKET view switch -->
+      <div class="tb-group view-switch">
+        <span class="tb-label">视图</span>
+        <button class="tb-btn small active" id="view-board" title="战术板">⚽ 战术板</button>
+        <button class="tb-btn small" id="view-bracket" title="世界杯对阵图">🏆 对阵图</button>
+      </div>
       <div class="tb-group">
         <button class="tb-btn small info" id="open-intro" title="功能介绍">ⓘ 说明</button>
       </div>
@@ -262,6 +354,41 @@
         <g id="pieces-layer"></g>
       </svg>
     </main>
+<!-- WC-BRACKET view -->
+    <section id="bracket-view">
+      <div id="wc-bar">
+        <span class="tb-label">情景</span>
+        <select id="wc-scenario" class="tb-select"></select>
+        <button class="tb-btn small" id="wc-new" title="新建情景（从真实开始）">＋ 新建</button>
+        <button class="tb-btn small" id="wc-dup" title="复制当前情景">⧉ 复制</button>
+        <button class="tb-btn small" id="wc-ren" title="重命名当前情景">✎</button>
+        <button class="tb-btn small danger" id="wc-del" title="删除当前情景">🗑</button>
+        <span style="width:6px"></span>
+        <button class="tb-btn small info" id="wc-fetch" title="联网抓取真实比分">↻ 抓取实时</button>
+        <button class="tb-btn small" id="wc-reset" title="清空本情景的所有改动，回到真实比分">重置回真实</button>
+        <span class="sep"></span>
+        <button class="tb-btn small" id="wc-export" title="导出全部情景为 JSON">导出</button>
+        <button class="tb-btn small" id="wc-import" title="从 JSON 导入情景">导入</button>
+        <span id="wc-status"></span>
+      </div>
+      <div id="wc-scroll">
+        <div id="wc-banner" class="hidden"></div>
+        <div><div class="wc-h">小组赛 · 改比分即时推演</div><div id="wc-groups"></div></div>
+        <div><div class="wc-h">小组第三名排名 · 前 8 名出线</div><div id="wc-thirds-body"></div></div>
+        <div><div class="wc-h">淘汰赛对阵图</div><div id="wc-bracket-wrap"><div id="wc-bracket"></div></div></div>
+      </div>
+      <input type="file" id="wc-file" accept="application/json,.json" style="display:none">
+      <div class="wc-modal-bg hidden" id="wc-modal-bg">
+        <div class="wc-modal">
+          <h3 id="wc-modal-title">情景名称</h3>
+          <input type="text" id="wc-modal-input" placeholder="输入名称" />
+          <div class="acts">
+            <button class="tb-btn" id="wc-modal-cancel">取消</button>
+            <button class="tb-btn primary" id="wc-modal-ok">确定</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- 自定义球队 -->
@@ -1233,6 +1360,444 @@ init();
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
   navigator.serviceWorker.register("sw.js").catch(()=>{});
 }
+</script>
+<!-- WC-BRACKET JS -->
+<script>
+/* ===== 2026 世界杯实时淘汰赛对阵图（if 线推演） ===== */
+(function(){
+"use strict";
+
+/* ---------- localStorage ---------- */
+var LS={
+  get:function(k,d){ try{ var v=JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } },
+  set:function(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+
+/* ---------- 球队数据：[id, 中文, English, color, [别名]] ，按种子位 1-4 ---------- */
+var RAW={
+ A:[["MEX","墨西哥","Mexico","#006847"],["KOR","韩国","South Korea","#c8102e",["Korea Republic","Korea"]],["CZE","捷克","Czechia","#11457e",["Czech Republic"]],["RSA","南非","South Africa","#007749"]],
+ B:[["CAN","加拿大","Canada","#d52b1e"],["SUI","瑞士","Switzerland","#d8232a"],["QAT","卡塔尔","Qatar","#8a1538"],["BIH","波黑","Bosnia and Herzegovina","#002395",["Bosnia-Herzegovina","Bosnia"]]],
+ C:[["BRA","巴西","Brazil","#009c3b"],["MAR","摩洛哥","Morocco","#c1272d"],["SCO","苏格兰","Scotland","#0065bf"],["HAI","海地","Haiti","#00209f"]],
+ D:[["USA","美国","USA","#0a3161",["United States"]],["AUS","澳大利亚","Australia","#00843d"],["TUR","土耳其","Türkiye","#e30a17",["Turkey"]],["PAR","巴拉圭","Paraguay","#d10011"]],
+ E:[["GER","德国","Germany","#222222"],["CIV","科特迪瓦","Ivory Coast","#f77f00",["Cote d'Ivoire","Côte d'Ivoire"]],["ECU","厄瓜多尔","Ecuador","#ffce00"],["CUW","库拉索","Curaçao","#00247d",["Curacao"]]],
+ F:[["NED","荷兰","Netherlands","#f36c21"],["JPN","日本","Japan","#0a1f6b"],["SWE","瑞典","Sweden","#006aa7"],["TUN","突尼斯","Tunisia","#e70013"]],
+ G:[["BEL","比利时","Belgium","#e30613"],["EGY","埃及","Egypt","#ce1126"],["IRN","伊朗","Iran","#239f40",["IR Iran"]],["NZL","新西兰","New Zealand","#222222"]],
+ H:[["ESP","西班牙","Spain","#c60b1e"],["URU","乌拉圭","Uruguay","#4f9fd6"],["KSA","沙特阿拉伯","Saudi Arabia","#006c35",["Saudi Arabia KSA"]],["CPV","佛得角","Cape Verde","#003893",["Cabo Verde"]]],
+ I:[["FRA","法国","France","#0055a4"],["SEN","塞内加尔","Senegal","#00853f"],["NOR","挪威","Norway","#ba0c2f"],["IRQ","伊拉克","Iraq","#007a3d"]],
+ J:[["ARG","阿根廷","Argentina","#6cace4"],["AUT","奥地利","Austria","#ed2939"],["ALG","阿尔及利亚","Algeria","#006233",["Algeria DZ"]],["JOR","约旦","Jordan","#007a3b"]],
+ K:[["POR","葡萄牙","Portugal","#006600"],["COD","刚果（金）","DR Congo","#1d8fe1",["Congo DR","Democratic Republic of the Congo","Congo","DR Congo"]],["UZB","乌兹别克斯坦","Uzbekistan","#1eb53a"],["COL","哥伦比亚","Colombia","#fcd116"]],
+ L:[["ENG","英格兰","England","#cf142b"],["CRO","克罗地亚","Croatia","#ff0000"],["GHA","加纳","Ghana","#006b3f"],["PAN","巴拿马","Panama","#da121a"]]
+};
+var GL=["A","B","C","D","E","F","G","H","I","J","K","L"];
+var T={}, GROUPS={};
+GL.forEach(function(g){ GROUPS[g]=[]; RAW[g].forEach(function(r,i){ T[r[0]]={id:r[0],cn:r[1],en:r[2],color:r[3],alias:r[4]||[],grp:g,seed:i+1}; GROUPS[g].push(r[0]); }); });
+
+function norm(s){ return (s||"").toLowerCase().replace(/[^a-z0-9]/g,""); }
+var NAME2ID={};
+Object.keys(T).forEach(function(id){ var t=T[id]; [t.en,t.cn].concat(t.alias).forEach(function(n){ NAME2ID[norm(n)]=id; }); });
+function teamByName(n){ return NAME2ID[norm(n)]||null; }
+
+/* ---------- 小组赛程：每组 6 场单循环 ---------- */
+var FIX=[]; var PAIRS=[[0,1],[2,3],[0,2],[1,3],[0,3],[1,2]];
+GL.forEach(function(g){ var ids=GROUPS[g]; PAIRS.forEach(function(p){ FIX.push({key:"G"+g+p[0]+p[1], g:g, h:ids[p[0]], a:ids[p[1]]}); }); });
+
+/* ---------- 淘汰赛结构（73-104）---------- */
+/* t: win/ru(小组头名/次名 by g) · third(slot) · w/l(胜者/负者 by match m) */
+var KO={
+ 73:{a:{t:"ru",g:"A"},b:{t:"ru",g:"B"}},
+ 74:{a:{t:"win",g:"E"},b:{t:"third",slot:"E"}},
+ 75:{a:{t:"win",g:"F"},b:{t:"ru",g:"C"}},
+ 76:{a:{t:"win",g:"C"},b:{t:"ru",g:"F"}},
+ 77:{a:{t:"win",g:"I"},b:{t:"third",slot:"I"}},
+ 78:{a:{t:"ru",g:"E"},b:{t:"ru",g:"I"}},
+ 79:{a:{t:"win",g:"A"},b:{t:"third",slot:"A"}},
+ 80:{a:{t:"win",g:"L"},b:{t:"third",slot:"L"}},
+ 81:{a:{t:"win",g:"D"},b:{t:"third",slot:"D"}},
+ 82:{a:{t:"win",g:"G"},b:{t:"third",slot:"G"}},
+ 83:{a:{t:"ru",g:"K"},b:{t:"ru",g:"L"}},
+ 84:{a:{t:"win",g:"H"},b:{t:"ru",g:"J"}},
+ 85:{a:{t:"win",g:"B"},b:{t:"third",slot:"B"}},
+ 86:{a:{t:"win",g:"J"},b:{t:"ru",g:"H"}},
+ 87:{a:{t:"win",g:"K"},b:{t:"third",slot:"K"}},
+ 88:{a:{t:"ru",g:"D"},b:{t:"ru",g:"G"}},
+ 89:{a:{t:"w",m:74},b:{t:"w",m:77}},
+ 90:{a:{t:"w",m:73},b:{t:"w",m:75}},
+ 91:{a:{t:"w",m:76},b:{t:"w",m:78}},
+ 92:{a:{t:"w",m:79},b:{t:"w",m:80}},
+ 93:{a:{t:"w",m:83},b:{t:"w",m:84}},
+ 94:{a:{t:"w",m:81},b:{t:"w",m:82}},
+ 95:{a:{t:"w",m:86},b:{t:"w",m:88}},
+ 96:{a:{t:"w",m:85},b:{t:"w",m:87}},
+ 97:{a:{t:"w",m:89},b:{t:"w",m:90}},
+ 98:{a:{t:"w",m:93},b:{t:"w",m:94}},
+ 99:{a:{t:"w",m:91},b:{t:"w",m:92}},
+ 100:{a:{t:"w",m:95},b:{t:"w",m:96}},
+ 101:{a:{t:"w",m:97},b:{t:"w",m:98}},
+ 102:{a:{t:"w",m:99},b:{t:"w",m:100}},
+ 103:{a:{t:"l",m:101},b:{t:"l",m:102}},
+ 104:{a:{t:"w",m:101},b:{t:"w",m:102}}
+};
+var KO_SEQ=[]; for(var n=73;n<=104;n++) KO_SEQ.push(n);
+var COLS=[
+ {name:"32强",nums:[74,77,73,75,83,84,81,82,76,78,79,80,86,88,85,87]},
+ {name:"16强",nums:[89,90,93,94,91,92,95,96]},
+ {name:"8强",nums:[97,98,99,100]},
+ {name:"半决赛",nums:[101,102]},
+ {name:"决赛",nums:[104]}
+];
+
+/* ---------- 小组第三名 -> 32强落位（官方 495 组合表） ---------- */
+var THIRD_SLOTS=["A","B","D","E","G","I","K","L"];
+var ALLOC = {"ABCDEFGH":"HGBCAFDE","ABCDEFGI":"CGBDAFEI","ABCDEFGJ":"CGBDAFEJ","ABCDEFGK":"CGBDAFEK","ABCDEFGL":"CGBDAFLE","ABCDEFHI":"HEBCAFDI","ABCDEFHJ":"HJBCAFDE","ABCDEFHK":"HEBCAFDK","ABCDEFHL":"HFBCADLE","ABCDEFIJ":"CJBDAFEI","ABCDEFIK":"CEBDAFIK","ABCDEFIL":"CEBDAFLI","ABCDEFJK":"CJBDAFEK","ABCDEFJL":"CJBDAFLE","ABCDEFKL":"CEBDAFLK","ABCDEGHI":"HGBCADEI","ABCDEGHJ":"HGBCADEJ","ABCDEGHK":"HGBCADEK","ABCDEGHL":"HGBCADLE","ABCDEGIJ":"EGBCADIJ","ABCDEGIK":"EGBCADIK","ABCDEGIL":"EGBCADLI","ABCDEGJK":"EGBCADJK","ABCDEGJL":"EGBCADLJ","ABCDEGKL":"EGBCADLK","ABCDEHIJ":"HJBCADEI","ABCDEHIK":"HEBCADIK","ABCDEHIL":"HEBCADLI","ABCDEHJK":"HJBCADEK","ABCDEHJL":"HJBCADLE","ABCDEHKL":"HEBCADLK","ABCDEIJK":"EJBCADIK","ABCDEIJL":"EJBCADLI","ABCDEIKL":"EIBCADLK","ABCDEJKL":"EJBCADLK","ABCDFGHI":"HGBCAFDI","ABCDFGHJ":"HGBCAFDJ","ABCDFGHK":"HGBCAFDK","ABCDFGHL":"CGBDAFLH","ABCDFGIJ":"CGBDAFIJ","ABCDFGIK":"CGBDAFIK","ABCDFGIL":"CGBDAFLI","ABCDFGJK":"CGBDAFJK","ABCDFGJL":"CGBDAFLJ","ABCDFGKL":"CGBDAFLK","ABCDFHIJ":"HJBCAFDI","ABCDFHIK":"HFBCADIK","ABCDFHIL":"HFBCADLI","ABCDFHJK":"HJBCAFDK","ABCDFHJL":"CJBDAFLH","ABCDFHKL":"HFBCADLK","ABCDFIJK":"CJBDAFIK","ABCDFIJL":"CJBDAFLI","ABCDFIKL":"CIBDAFLK","ABCDFJKL":"CJBDAFLK","ABCDGHIJ":"HGBCADIJ","ABCDGHIK":"HGBCADIK","ABCDGHIL":"HGBCADLI","ABCDGHJK":"HGBCADJK","ABCDGHJL":"HGBCADLJ","ABCDGHKL":"HGBCADLK","ABCDGIJK":"CJBDAGIK","ABCDGIJL":"CJBDAGLI","ABCDGIKL":"IGBCADLK","ABCDGJKL":"CJBDAGLK","ABCDHIJK":"HJBCADIK","ABCDHIJL":"HJBCADLI","ABCDHIKL":"HIBCADLK","ABCDHJKL":"HJBCADLK","ABCDIJKL":"IJBCADLK","ABCEFGHI":"HGBCAFEI","ABCEFGHJ":"HGBCAFEJ","ABCEFGHK":"HGBCAFEK","ABCEFGHL":"HGBCAFLE","ABCEFGIJ":"EGBCAFIJ","ABCEFGIK":"EGBCAFIK","ABCEFGIL":"EGBCAFLI","ABCEFGJK":"EGBCAFJK","ABCEFGJL":"EGBCAFLJ","ABCEFGKL":"EGBCAFLK","ABCEFHIJ":"HJBCAFEI","ABCEFHIK":"HEBCAFIK","ABCEFHIL":"HEBCAFLI","ABCEFHJK":"HJBCAFEK","ABCEFHJL":"HJBCAFLE","ABCEFHKL":"HEBCAFLK","ABCEFIJK":"EJBCAFIK","ABCEFIJL":"EJBCAFLI","ABCEFIKL":"EIBCAFLK","ABCEFJKL":"EJBCAFLK","ABCEGHIJ":"HJBCAGEI","ABCEGHIK":"EGBCAHIK","ABCEGHIL":"EGBCAHLI","ABCEGHJK":"HJBCAGEK","ABCEGHJL":"HJBCAGLE","ABCEGHKL":"EGBCAHLK","ABCEGIJK":"EJBCAGIK","ABCEGIJL":"EJBCAGLI","ABCEGIKL":"EGBAICLK","ABCEGJKL":"EJBCAGLK","ABCEHIJK":"EJBCAHIK","ABCEHIJL":"EJBCAHLI","ABCEHIKL":"EIBCAHLK","ABCEHJKL":"EJBCAHLK","ABCEIJKL":"EJBAICLK","ABCFGHIJ":"HGBCAFIJ","ABCFGHIK":"HGBCAFIK","ABCFGHIL":"HGBCAFLI","ABCFGHJK":"HGBCAFJK","ABCFGHJL":"HGBCAFLJ","ABCFGHKL":"HGBCAFLK","ABCFGIJK":"CJBFAGIK","ABCFGIJL":"CJBFAGLI","ABCFGIKL":"IGBCAFLK","ABCFGJKL":"CJBFAGLK","ABCFHIJK":"HJBCAFIK","ABCFHIJL":"HJBCAFLI","ABCFHIKL":"HIBCAFLK","ABCFHJKL":"HJBCAFLK","ABCFIJKL":"IJBCAFLK","ABCGHIJK":"HJBCAGIK","ABCGHIJL":"HJBCAGLI","ABCGHIKL":"IGBCAHLK","ABCGHJKL":"HJBCAGLK","ABCGIJKL":"IJBCAGLK","ABCHIJKL":"IJBCAHLK","ABDEFGHI":"HGBDAFEI","ABDEFGHJ":"HGBDAFEJ","ABDEFGHK":"HGBDAFEK","ABDEFGHL":"HGBDAFLE","ABDEFGIJ":"EGBDAFIJ","ABDEFGIK":"EGBDAFIK","ABDEFGIL":"EGBDAFLI","ABDEFGJK":"EGBDAFJK","ABDEFGJL":"EGBDAFLJ","ABDEFGKL":"EGBDAFLK","ABDEFHIJ":"HJBDAFEI","ABDEFHIK":"HEBDAFIK","ABDEFHIL":"HEBDAFLI","ABDEFHJK":"HJBDAFEK","ABDEFHJL":"HJBDAFLE","ABDEFHKL":"HEBDAFLK","ABDEFIJK":"EJBDAFIK","ABDEFIJL":"EJBDAFLI","ABDEFIKL":"EIBDAFLK","ABDEFJKL":"EJBDAFLK","ABDEGHIJ":"HJBDAGEI","ABDEGHIK":"EGBDAHIK","ABDEGHIL":"EGBDAHLI","ABDEGHJK":"HJBDAGEK","ABDEGHJL":"HJBDAGLE","ABDEGHKL":"EGBDAHLK","ABDEGIJK":"EJBDAGIK","ABDEGIJL":"EJBDAGLI","ABDEGIKL":"EGBAIDLK","ABDEGJKL":"EJBDAGLK","ABDEHIJK":"EJBDAHIK","ABDEHIJL":"EJBDAHLI","ABDEHIKL":"EIBDAHLK","ABDEHJKL":"EJBDAHLK","ABDEIJKL":"EJBAIDLK","ABDFGHIJ":"HGBDAFIJ","ABDFGHIK":"HGBDAFIK","ABDFGHIL":"HGBDAFLI","ABDFGHJK":"HGBDAFJK","ABDFGHJL":"HGBDAFLJ","ABDFGHKL":"HGBDAFLK","ABDFGIJK":"FJBDAGIK","ABDFGIJL":"FJBDAGLI","ABDFGIKL":"IGBDAFLK","ABDFGJKL":"FJBDAGLK","ABDFHIJK":"HJBDAFIK","ABDFHIJL":"HJBDAFLI","ABDFHIKL":"HIBDAFLK","ABDFHJKL":"HJBDAFLK","ABDFIJKL":"IJBDAFLK","ABDGHIJK":"HJBDAGIK","ABDGHIJL":"HJBDAGLI","ABDGHIKL":"IGBDAHLK","ABDGHJKL":"HJBDAGLK","ABDGIJKL":"IJBDAGLK","ABDHIJKL":"IJBDAHLK","ABEFGHIJ":"HJBFAGEI","ABEFGHIK":"EGBFAHIK","ABEFGHIL":"EGBFAHLI","ABEFGHJK":"HJBFAGEK","ABEFGHJL":"HJBFAGLE","ABEFGHKL":"EGBFAHLK","ABEFGIJK":"EJBFAGIK","ABEFGIJL":"EJBFAGLI","ABEFGIKL":"EGBAIFLK","ABEFGJKL":"EJBFAGLK","ABEFHIJK":"EJBFAHIK","ABEFHIJL":"EJBFAHLI","ABEFHIKL":"EIBFAHLK","ABEFHJKL":"EJBFAHLK","ABEFIJKL":"EJBAIFLK","ABEGHIJK":"EJBAHGIK","ABEGHIJL":"EJBAHGLI","ABEGHIKL":"EGBAIHLK","ABEGHJKL":"EJBAHGLK","ABEGIJKL":"EJBAIGLK","ABEHIJKL":"EJBAIHLK","ABFGHIJK":"HJBFAGIK","ABFGHIJL":"HJBFAGLI","ABFGHIKL":"HGBAIFLK","ABFGHJKL":"HJBFAGLK","ABFGIJKL":"IJBFAGLK","ABFHIJKL":"HJBAIFLK","ABGHIJKL":"HJBAIGLK","ACDEFGHI":"HGECAFDI","ACDEFGHJ":"HGJCAFDE","ACDEFGHK":"HGECAFDK","ACDEFGHL":"HGFCADLE","ACDEFGIJ":"CGJDAFEI","ACDEFGIK":"CGEDAFIK","ACDEFGIL":"CGEDAFLI","ACDEFGJK":"CGJDAFEK","ACDEFGJL":"CGJDAFLE","ACDEFGKL":"CGEDAFLK","ACDEFHIJ":"HJECAFDI","ACDEFHIK":"HEFCADIK","ACDEFHIL":"HEFCADLI","ACDEFHJK":"HJECAFDK","ACDEFHJL":"HJFCADLE","ACDEFHKL":"HEFCADLK","ACDEFIJK":"CJEDAFIK","ACDEFIJL":"CJEDAFLI","ACDEFIKL":"CEIDAFLK","ACDEFJKL":"CJEDAFLK","ACDEGHIJ":"HGJCADEI","ACDEGHIK":"HGECADIK","ACDEGHIL":"HGECADLI","ACDEGHJK":"HGJCADEK","ACDEGHJL":"HGJCADLE","ACDEGHKL":"HGECADLK","ACDEGIJK":"EGJCADIK","ACDEGIJL":"EGJCADLI","ACDEGIKL":"EGICADLK","ACDEGJKL":"EGJCADLK","ACDEHIJK":"HJECADIK","ACDEHIJL":"HJECADLI","ACDEHIKL":"HEICADLK","ACDEHJKL":"HJECADLK","ACDEIJKL":"EJICADLK","ACDFGHIJ":"HGJCAFDI","ACDFGHIK":"HGFCADIK","ACDFGHIL":"HGFCADLI","ACDFGHJK":"HGJCAFDK","ACDFGHJL":"CGJDAFLH","ACDFGHKL":"HGFCADLK","ACDFGIJK":"CGJDAFIK","ACDFGIJL":"CGJDAFLI","ACDFGIKL":"CGIDAFLK","ACDFGJKL":"CGJDAFLK","ACDFHIJK":"HJFCADIK","ACDFHIJL":"HJFCADLI","ACDFHIKL":"HFICADLK","ACDFHJKL":"HJFCADLK","ACDFIJKL":"CJIDAFLK","ACDGHIJK":"HGJCADIK","ACDGHIJL":"HGJCADLI","ACDGHIKL":"HGICADLK","ACDGHJKL":"HGJCADLK","ACDGIJKL":"IGJCADLK","ACDHIJKL":"HJICADLK","ACEFGHIJ":"HGJCAFEI","ACEFGHIK":"HGECAFIK","ACEFGHIL":"HGECAFLI","ACEFGHJK":"HGJCAFEK","ACEFGHJL":"HGJCAFLE","ACEFGHKL":"HGECAFLK","ACEFGIJK":"EGJCAFIK","ACEFGIJL":"EGJCAFLI","ACEFGIKL":"EGICAFLK","ACEFGJKL":"EGJCAFLK","ACEFHIJK":"HJECAFIK","ACEFHIJL":"HJECAFLI","ACEFHIKL":"HEICAFLK","ACEFHJKL":"HJECAFLK","ACEFIJKL":"EJICAFLK","ACEGHIJK":"EGJCAHIK","ACEGHIJL":"EGJCAHLI","ACEGHIKL":"EGICAHLK","ACEGHJKL":"EGJCAHLK","ACEGIJKL":"EJICAGLK","ACEHIJKL":"EJICAHLK","ACFGHIJK":"HGJCAFIK","ACFGHIJL":"HGJCAFLI","ACFGHIKL":"HGICAFLK","ACFGHJKL":"HGJCAFLK","ACFGIJKL":"IGJCAFLK","ACFHIJKL":"HJICAFLK","ACGHIJKL":"HJICAGLK","ADEFGHIJ":"HGJDAFEI","ADEFGHIK":"HGEDAFIK","ADEFGHIL":"HGEDAFLI","ADEFGHJK":"HGJDAFEK","ADEFGHJL":"HGJDAFLE","ADEFGHKL":"HGEDAFLK","ADEFGIJK":"EGJDAFIK","ADEFGIJL":"EGJDAFLI","ADEFGIKL":"EGIDAFLK","ADEFGJKL":"EGJDAFLK","ADEFHIJK":"HJEDAFIK","ADEFHIJL":"HJEDAFLI","ADEFHIKL":"HEIDAFLK","ADEFHJKL":"HJEDAFLK","ADEFIJKL":"EJIDAFLK","ADEGHIJK":"EGJDAHIK","ADEGHIJL":"EGJDAHLI","ADEGHIKL":"EGIDAHLK","ADEGHJKL":"EGJDAHLK","ADEGIJKL":"EJIDAGLK","ADEHIJKL":"EJIDAHLK","ADFGHIJK":"HGJDAFIK","ADFGHIJL":"HGJDAFLI","ADFGHIKL":"HGIDAFLK","ADFGHJKL":"HGJDAFLK","ADFGIJKL":"IGJDAFLK","ADFHIJKL":"HJIDAFLK","ADGHIJKL":"HJIDAGLK","AEFGHIJK":"EGJFAHIK","AEFGHIJL":"EGJFAHLI","AEFGHIKL":"EGIFAHLK","AEFGHJKL":"EGJFAHLK","AEFGIJKL":"EJIFAGLK","AEFHIJKL":"EJIFAHLK","AEGHIJKL":"EJIAHGLK","AFGHIJKL":"HJIFAGLK","BCDEFGHI":"CGBDHFEI","BCDEFGHJ":"HGBCJFDE","BCDEFGHK":"CGBDHFEK","BCDEFGHL":"CGBDHFLE","BCDEFGIJ":"CGBDJFEI","BCDEFGIK":"CGBDEFIK","BCDEFGIL":"CGBDEFLI","BCDEFGJK":"CGBDJFEK","BCDEFGJL":"CGBDJFLE","BCDEFGKL":"CGBDEFLK","BCDEFHIJ":"CJBDHFEI","BCDEFHIK":"CEBDHFIK","BCDEFHIL":"CEBDHFLI","BCDEFHJK":"CJBDHFEK","BCDEFHJL":"CJBDHFLE","BCDEFHKL":"CEBDHFLK","BCDEFIJK":"CJBDEFIK","BCDEFIJL":"CJBDEFLI","BCDEFIKL":"CEBDIFLK","BCDEFJKL":"CJBDEFLK","BCDEGHIJ":"HGBCJDEI","BCDEGHIK":"EGBCHDIK","BCDEGHIL":"EGBCHDLI","BCDEGHJK":"HGBCJDEK","BCDEGHJL":"HGBCJDLE","BCDEGHKL":"EGBCHDLK","BCDEGIJK":"EGBCJDIK","BCDEGIJL":"EGBCJDLI","BCDEGIKL":"EGBCIDLK","BCDEGJKL":"EGBCJDLK","BCDEHIJK":"EJBCHDIK","BCDEHIJL":"EJBCHDLI","BCDEHIKL":"EIBCHDLK","BCDEHJKL":"EJBCHDLK","BCDEIJKL":"EJBCIDLK","BCDFGHIJ":"HGBCJFDI","BCDFGHIK":"CGBDHFIK","BCDFGHIL":"CGBDHFLI","BCDFGHJK":"HGBCJFDK","BCDFGHJL":"CGBDHFLJ","BCDFGHKL":"CGBDHFLK","BCDFGIJK":"CGBDJFIK","BCDFGIJL":"CGBDJFLI","BCDFGIKL":"CGBDIFLK","BCDFGJKL":"CGBDJFLK","BCDFHIJK":"CJBDHFIK","BCDFHIJL":"CJBDHFLI","BCDFHIKL":"CIBDHFLK","BCDFHJKL":"CJBDHFLK","BCDFIJKL":"CJBDIFLK","BCDGHIJK":"HGBCJDIK","BCDGHIJL":"HGBCJDLI","BCDGHIKL":"HGBCIDLK","BCDGHJKL":"HGBCJDLK","BCDGIJKL":"IGBCJDLK","BCDHIJKL":"HJBCIDLK","BCEFGHIJ":"HGBCJFEI","BCEFGHIK":"EGBCHFIK","BCEFGHIL":"EGBCHFLI","BCEFGHJK":"HGBCJFEK","BCEFGHJL":"HGBCJFLE","BCEFGHKL":"EGBCHFLK","BCEFGIJK":"EGBCJFIK","BCEFGIJL":"EGBCJFLI","BCEFGIKL":"EGBCIFLK","BCEFGJKL":"EGBCJFLK","BCEFHIJK":"EJBCHFIK","BCEFHIJL":"EJBCHFLI","BCEFHIKL":"EIBCHFLK","BCEFHJKL":"EJBCHFLK","BCEFIJKL":"EJBCIFLK","BCEGHIJK":"EJBCHGIK","BCEGHIJL":"EJBCHGLI","BCEGHIKL":"EGBCIHLK","BCEGHJKL":"EJBCHGLK","BCEGIJKL":"EJBCIGLK","BCEHIJKL":"EJBCIHLK","BCFGHIJK":"HGBCJFIK","BCFGHIJL":"HGBCJFLI","BCFGHIKL":"HGBCIFLK","BCFGHJKL":"HGBCJFLK","BCFGIJKL":"IGBCJFLK","BCFHIJKL":"HJBCIFLK","BCGHIJKL":"HJBCIGLK","BDEFGHIJ":"HGBDJFEI","BDEFGHIK":"EGBDHFIK","BDEFGHIL":"EGBDHFLI","BDEFGHJK":"HGBDJFEK","BDEFGHJL":"HGBDJFLE","BDEFGHKL":"EGBDHFLK","BDEFGIJK":"EGBDJFIK","BDEFGIJL":"EGBDJFLI","BDEFGIKL":"EGBDIFLK","BDEFGJKL":"EGBDJFLK","BDEFHIJK":"EJBDHFIK","BDEFHIJL":"EJBDHFLI","BDEFHIKL":"EIBDHFLK","BDEFHJKL":"EJBDHFLK","BDEFIJKL":"EJBDIFLK","BDEGHIJK":"EJBDHGIK","BDEGHIJL":"EJBDHGLI","BDEGHIKL":"EGBDIHLK","BDEGHJKL":"EJBDHGLK","BDEGIJKL":"EJBDIGLK","BDEHIJKL":"EJBDIHLK","BDFGHIJK":"HGBDJFIK","BDFGHIJL":"HGBDJFLI","BDFGHIKL":"HGBDIFLK","BDFGHJKL":"HGBDJFLK","BDFGIJKL":"IGBDJFLK","BDFHIJKL":"HJBDIFLK","BDGHIJKL":"HJBDIGLK","BEFGHIJK":"EJBFHGIK","BEFGHIJL":"EJBFHGLI","BEFGHIKL":"EGBFIHLK","BEFGHJKL":"EJBFHGLK","BEFGIJKL":"EJBFIGLK","BEFHIJKL":"EJBFIHLK","BEGHIJKL":"EJIBHGLK","BFGHIJKL":"HJBFIGLK","CDEFGHIJ":"CGJDHFEI","CDEFGHIK":"CGEDHFIK","CDEFGHIL":"CGEDHFLI","CDEFGHJK":"CGJDHFEK","CDEFGHJL":"CGJDHFLE","CDEFGHKL":"CGEDHFLK","CDEFGIJK":"CGEDJFIK","CDEFGIJL":"CGEDJFLI","CDEFGIKL":"CGEDIFLK","CDEFGJKL":"CGEDJFLK","CDEFHIJK":"CJEDHFIK","CDEFHIJL":"CJEDHFLI","CDEFHIKL":"CEIDHFLK","CDEFHJKL":"CJEDHFLK","CDEFIJKL":"CJEDIFLK","CDEGHIJK":"EGJCHDIK","CDEGHIJL":"EGJCHDLI","CDEGHIKL":"EGICHDLK","CDEGHJKL":"EGJCHDLK","CDEGIJKL":"EGICJDLK","CDEHIJKL":"EJICHDLK","CDFGHIJK":"CGJDHFIK","CDFGHIJL":"CGJDHFLI","CDFGHIKL":"CGIDHFLK","CDFGHJKL":"CGJDHFLK","CDFGIJKL":"CGIDJFLK","CDFHIJKL":"CJIDHFLK","CDGHIJKL":"HGICJDLK","CEFGHIJK":"EGJCHFIK","CEFGHIJL":"EGJCHFLI","CEFGHIKL":"EGICHFLK","CEFGHJKL":"EGJCHFLK","CEFGIJKL":"EGICJFLK","CEFHIJKL":"EJICHFLK","CEGHIJKL":"EJICHGLK","CFGHIJKL":"HGICJFLK","DEFGHIJK":"EGJDHFIK","DEFGHIJL":"EGJDHFLI","DEFGHIKL":"EGIDHFLK","DEFGHJKL":"EGJDHFLK","DEFGIJKL":"EGIDJFLK","DEFHIJKL":"EJIDHFLK","DEGHIJKL":"EJIDHGLK","DFGHIJKL":"HGIDJFLK","EFGHIJKL":"EJIFHGLK"};
+var ALLOWED={A:"CEFHI",B:"EFGIJ",D:"BEFIJ",E:"ABCDF",G:"AEHIJ",I:"CDFGH",K:"DEIJL",L:"EHIJK"};
+function allocate(advSorted){
+  var key=advSorted.join(""); var v=ALLOC[key]; var map={};
+  if(v){ THIRD_SLOTS.forEach(function(s,i){ map[s]=v[i]; }); return map; }
+  // 兜底：二部图匹配
+  var matchG={};
+  function tryK(slot,seen){ for(var k=0;k<advSorted.length;k++){ var g=advSorted[k]; if(ALLOWED[slot].indexOf(g)>=0 && !seen[g]){ seen[g]=1; if(!matchG[g]||tryK(matchG[g],seen)){ matchG[g]=slot; return true; } } } return false; }
+  THIRD_SLOTS.forEach(function(s){ tryK(s,{}); });
+  Object.keys(matchG).forEach(function(g){ map[matchG[g]]=g; });
+  return map;
+}
+
+/* ---------- baseline（真实/实时，按队对存“队->进球”）---------- */
+var BASE=LS.get("wc_baseline",{});      // { "AAA|BBB": {AAA:2,BBB:1} }
+var BASE_TS=LS.get("wc_baseline_ts",0);
+function PK(a,b){ return a<b?a+"|"+b:b+"|"+a; }
+
+/* ---------- 情景（overrides 叠加在 baseline 上）---------- */
+var SC=LS.get("wc_scenarios",null), ACTIVE=LS.get("wc_active",null);
+if(!SC||!SC.length){ SC=[{id:"s"+Date.now(),name:"实时（真实）",ov:{}}]; ACTIVE=SC[0].id; }
+if(!SC.filter(function(s){return s.id===ACTIVE;}).length) ACTIVE=SC[0].id;
+function cur(){ for(var i=0;i<SC.length;i++) if(SC[i].id===ACTIVE) return SC[i]; return SC[0]; }
+function saveSC(){ LS.set("wc_scenarios",SC); LS.set("wc_active",ACTIVE); }
+function ov(mk){ return cur().ov[mk]; }
+function has(o,k){ return o&&Object.prototype.hasOwnProperty.call(o,k); }
+
+/* 显示值：override 优先，其次 baseline，否则空 */
+function dispVal(mk,a,b,side){
+  var o=ov(mk);
+  if(has(o,side)) return o[side];
+  if(a&&b){ var bg=BASE[PK(a,b)]; if(bg){ var id=side==="h"?a:b; if(bg[id]!=null) return String(bg[id]); } }
+  return "";
+}
+function numScore(mk,a,b){
+  var h=dispVal(mk,a,b,"h"), aa=dispVal(mk,a,b,"a");
+  if(h===""||aa===""||isNaN(+h)||isNaN(+aa)) return null;
+  return {H:+h,A:+aa};
+}
+function isOv(mk,a,b){ // 本场是否被本情景改动（相对真实/或手填）
+  var o=ov(mk); if(!o) return false;
+  var bg=a&&b?BASE[PK(a,b)]:null;
+  function base(side){ if(!bg) return ""; return String(side==="h"?(bg[a]):(bg[b])); }
+  if(has(o,"h") && o.h!==base("h")) return true;
+  if(has(o,"a") && o.a!==base("a")) return true;
+  if(has(o,"pk") && o.pk) return true;
+  return false;
+}
+function baseExists(a,b){ return !!(a&&b&&BASE[PK(a,b)]); }
+function isOvReal(mk,a,b){ return baseExists(a,b)&&isOv(mk,a,b); } // 真实结果被改写
+
+/* ---------- 引擎 ---------- */
+function groupTable(g){
+  var ids=GROUPS[g], st={}, played=[];
+  ids.forEach(function(id){ st[id]={id:id,P:0,W:0,D:0,L:0,GF:0,GA:0,Pts:0,GD:0}; });
+  FIX.forEach(function(f){
+    if(f.g!==g) return;
+    var s=numScore(f.key,f.h,f.a); if(!s) return;
+    played.push({h:f.h,a:f.a,H:s.H,A:s.A});
+    var sh=st[f.h], sa=st[f.a];
+    sh.P++; sa.P++; sh.GF+=s.H; sh.GA+=s.A; sa.GF+=s.A; sa.GA+=s.H;
+    if(s.H>s.A){sh.W++;sa.L++;} else if(s.H<s.A){sa.W++;sh.L++;} else {sh.D++;sa.D++;}
+  });
+  ids.forEach(function(id){ var s=st[id]; s.Pts=s.W*3+s.D; s.GD=s.GF-s.GA; });
+  var arr=ids.map(function(id){return st[id];});
+  arr.sort(function(x,y){ return (y.Pts-x.Pts)||(y.GD-x.GD)||(y.GF-x.GF)||0; });
+  arr=breakTies(arr,played);
+  arr.forEach(function(s,i){ s.rank=i+1; });
+  return {arr:arr, complete:played.length===6, played:played, count:played.length};
+}
+function breakTies(arr,played){
+  var out=[], i=0;
+  while(i<arr.length){
+    var j=i+1;
+    while(j<arr.length && arr[j].Pts===arr[i].Pts && arr[j].GD===arr[i].GD && arr[j].GF===arr[i].GF) j++;
+    var run=arr.slice(i,j);
+    if(run.length>1){
+      var rid={}; run.forEach(function(s){ rid[s.id]={Pts:0,GD:0,GF:0}; });
+      played.forEach(function(m){
+        if(rid[m.h]&&rid[m.a]){
+          rid[m.h].GF+=m.H; rid[m.h].GD+=m.H-m.A; rid[m.a].GF+=m.A; rid[m.a].GD+=m.A-m.H;
+          if(m.H>m.A) rid[m.h].Pts+=3; else if(m.H<m.A) rid[m.a].Pts+=3; else {rid[m.h].Pts++;rid[m.a].Pts++;}
+        }
+      });
+      run.sort(function(x,y){ return (rid[y.id].Pts-rid[x.id].Pts)||(rid[y.id].GD-rid[x.id].GD)||(rid[y.id].GF-rid[x.id].GF)||(T[x.id].seed-T[y.id].seed); });
+    }
+    run.forEach(function(s){ out.push(s); }); i=j;
+  }
+  return out;
+}
+function rankThirds(tables){
+  var arr=GL.map(function(g){ return {g:g, s:tables[g].arr[2], complete:tables[g].complete}; });
+  arr.sort(function(A,B){ return (B.s.Pts-A.s.Pts)||(B.s.GD-A.s.GD)||(B.s.GF-A.s.GF)||(A.g<B.g?-1:1); });
+  arr.forEach(function(t,i){ t.tr=i+1; t.adv=i<8; });
+  var advSet=arr.slice(0,8).map(function(t){return t.g;}).sort();
+  return {arr:arr, advSet:advSet};
+}
+function resolveAll(){
+  var tables={}; GL.forEach(function(g){ tables[g]=groupTable(g); });
+  var allComplete=GL.every(function(g){ return tables[g].complete; });
+  var tr=rankThirds(tables);
+  var amap=allocate(tr.advSet);
+  var winners={}, losers={}, ko={};
+  function teamOf(sp){
+    if(sp.t==="win"){ var w=tables[sp.g].arr[0]; return {id:w.id,prov:!tables[sp.g].complete,label:"1"+sp.g}; }
+    if(sp.t==="ru"){ var r=tables[sp.g].arr[1]; return {id:r.id,prov:!tables[sp.g].complete,label:"2"+sp.g}; }
+    if(sp.t==="third"){ var grp=amap[sp.slot]; if(!grp) return {id:null,label:"3?"}; var t3=tables[grp].arr[2]; return {id:t3.id,prov:!allComplete,label:"3"+grp}; }
+    if(sp.t==="w"){ var ww=winners[sp.m]; return ww?{id:ww.id,prov:ww.prov}:{id:null,label:"胜"+sp.m}; }
+    if(sp.t==="l"){ var ll=losers[sp.m]; return ll?{id:ll.id,prov:ll.prov}:{id:null,label:"负"+sp.m}; }
+  }
+  KO_SEQ.forEach(function(num){
+    var sp=KO[num], A=teamOf(sp.a), B=teamOf(sp.b), mk="K"+num;
+    var hs=(A.id&&B.id)?dispVal(mk,A.id,B.id,"h"):"";
+    var as=(A.id&&B.id)?dispVal(mk,A.id,B.id,"a"):"";
+    var winner=null,loser=null,decided=false,pkw=null,prov=(A.prov||B.prov||!allComplete);
+    if(A.id&&B.id&&hs!==""&&as!==""&&!isNaN(+hs)&&!isNaN(+as)){
+      var H=+hs,Aa=+as;
+      if(H>Aa){winner={id:A.id};loser={id:B.id};decided=true;}
+      else if(H<Aa){winner={id:B.id};loser={id:A.id};decided=true;}
+      else { var o=ov(mk); pkw=o&&o.pk; if(!pkw){ var bgw=BASE[PK(A.id,B.id)]; if(bgw&&bgw.w) pkw=(bgw.w===A.id?"h":(bgw.w===B.id?"a":null)); } if(pkw==="h"){winner={id:A.id};loser={id:B.id};decided=true;} else if(pkw==="a"){winner={id:B.id};loser={id:A.id};decided=true;} }
+    }
+    if(winner){ winner.prov=prov; winners[num]=winner; }
+    if(loser){ loser.prov=prov; losers[num]=loser; }
+    ko[num]={A:A,B:B,hs:hs,as:as,decided:decided,pkw:pkw,winner:winner,loser:loser,mk:mk,prov:prov};
+  });
+  return {tables:tables,tr:tr,amap:amap,ko:ko,allComplete:allComplete};
+}
+
+/* ---------- 渲染 ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];}); }
+function dot(id){ return '<span class="wc-dot" style="background:'+T[id].color+'"></span>'; }
+function dotR(id){ return '<span class="wc-dot" style="background:'+T[id].color+';margin:0 0 0 5px"></span>'; }
+function nm(id){ return esc(T[id].cn); }
+
+function scInput(mk,a,b,side,disabled){
+  var v=(a&&b)?dispVal(mk,a,b,side):"";
+  var cls="wc-sc"+(isOv(mk,a,b)&&((side==="h"&&has(ov(mk),"h"))||(side==="a"&&has(ov(mk),"a")))?" ov":"");
+  return '<input class="'+cls+'" type="number" min="0" inputmode="numeric" data-mk="'+mk+'" data-side="'+side+'" data-a="'+(a||"")+'" data-b="'+(b||"")+'" value="'+esc(v)+'"'+(disabled?" disabled":"")+'>';
+}
+
+function renderGroups(R){
+  var html="";
+  GL.forEach(function(g){
+    var tb=R.tables[g], adv3=R.tr.advSet.indexOf(g)>=0;
+    html+='<div class="wc-grp"><h4><span>'+g+' 组</span><span class="tag">'+tb.count+'/6 场</span></h4>';
+    html+='<table class="wc-std"><tr><th></th><th class="nm" style="text-align:left">球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>净</th><th>分</th></tr>';
+    tb.arr.forEach(function(s){
+      var cls=s.rank<=2?"q1":(s.rank===3?"q3"+(adv3?" adv":""):"");
+      html+='<tr class="'+cls+'"><td>'+s.rank+'</td><td class="nm">'+dot(s.id)+nm(s.id)+(s.rank===3&&adv3?'<span class="wc-mini">出线</span>':"")+'</td><td>'+s.P+'</td><td>'+s.W+'</td><td>'+s.D+'</td><td>'+s.L+'</td><td>'+(s.GD>0?"+":"")+s.GD+'</td><td class="pts">'+s.Pts+'</td></tr>';
+    });
+    html+='</table><div class="wc-fx">';
+    FIX.forEach(function(f){ if(f.g!==g) return;
+      var s=numScore(f.key,f.h,f.a), hw=s&&s.H>s.A, aw=s&&s.A>s.H;
+      html+='<div class="row'+(s?" played":"")+'">'+
+        '<span class="t h'+(hw?" win":"")+'">'+nm(f.h)+dotR(f.h)+'</span>'+
+        scInput(f.key,f.h,f.a,"h",false)+'<span class="dash">:</span>'+scInput(f.key,f.h,f.a,"a",false)+
+        '<span class="t'+(aw?" win":"")+'">'+dot(f.a)+nm(f.a)+'</span></div>';
+    });
+    html+='</div></div>';
+  });
+  document.getElementById("wc-groups").innerHTML=html;
+}
+
+function renderThirds(R){
+  var h='<table class="wc-3rd"><tr><th>名次</th><th>组</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>净</th><th>进</th><th>分</th><th>状态</th></tr>';
+  R.tr.arr.forEach(function(t){
+    var s=t.s;
+    h+='<tr class="'+(t.adv?"adv":"")+'"><td>'+t.tr+'</td><td>'+t.g+'</td><td>'+dot(s.id)+nm(s.id)+'</td><td>'+s.P+'</td><td>'+s.W+'</td><td>'+s.D+'</td><td>'+s.L+'</td><td>'+(s.GD>0?"+":"")+s.GD+'</td><td>'+s.GF+'</td><td><b>'+s.Pts+'</b></td><td class="'+(t.adv?"q":"out")+'">'+(t.adv?"✓ 出线":"淘汰")+'</td></tr>';
+  });
+  h+='</table>';
+  document.getElementById("wc-thirds-body").innerHTML=h;
+}
+
+function sideHTML(m,sideKey,teamObj,otherObj,R){
+  var resolved=!!teamObj.id, disabled=!(m.A.id&&m.B.id);
+  var label = resolved ? (dot(teamObj.id)+nm(teamObj.id)+(teamObj.prov?'<span class="prov">?</span>':"")) : '<span class="tbd">'+esc(teamObj.label||"待定")+'</span>';
+  var win = m.decided && m.winner && m.winner.id===teamObj.id;
+  var lose= m.decided && m.loser && m.loser.id===teamObj.id;
+  return '<div class="side'+(win?" win":"")+(lose?" lose":"")+'"><span class="nm">'+label+'</span>'+scInput(m.mk,m.A.id,m.B.id,sideKey,disabled)+'</div>';
+}
+function renderBracket(R){
+  var wrap="";
+  COLS.forEach(function(col){
+    var c='<div class="wc-col"><div class="col-h">'+col.name+'</div>';
+    col.nums.forEach(function(num){
+      var m=R.ko[num], isFinal=(num===104);
+      var changed=isOvReal(m.mk,m.A.id,m.B.id);
+      c+='<div class="wc-tie'+(isFinal?" final":"")+'"><div class="num"><span>M'+num+(isFinal?' · 决赛':"")+'</span>'+(changed?'<span class="ovb">已改</span>':"")+'</div>';
+      c+=sideHTML(m,"h",m.A,m.B,R);
+      c+=sideHTML(m,"a",m.B,m.A,R);
+      // 点球：双方已知且比分相等
+      var s=(m.A.id&&m.B.id)?numScore(m.mk,m.A.id,m.B.id):null;
+      if(s && s.H===s.A){
+        c+='<div class="pk">点球：<button data-pkmk="'+m.mk+'" data-pk="h" class="'+(m.pkw==="h"?"on":"")+'">'+(m.A.id?nm(m.A.id):"上")+'</button><button data-pkmk="'+m.mk+'" data-pk="a" class="'+(m.pkw==="a"?"on":"")+'">'+(m.B.id?nm(m.B.id):"下")+'</button></div>';
+      }
+      c+='</div>';
+    });
+    c+='</div>';
+    wrap+=c;
+    if(col.name==="决赛"){
+      // 季军赛附在决赛列下方
+      var m3=R.ko[103];
+      wrap=wrap.replace(/<\/div>$/,"");
+      wrap+='<div class="wc-tie third-place"><div class="num"><span>M103 · 季军赛</span>'+(isOvReal(m3.mk,m3.A.id,m3.B.id)?'<span class="ovb">已改</span>':"")+'</div>'+sideHTML(m3,"h",m3.A,m3.B,R)+sideHTML(m3,"a",m3.B,m3.A,R);
+      var s3=(m3.A.id&&m3.B.id)?numScore(m3.mk,m3.A.id,m3.B.id):null;
+      if(s3&&s3.H===s3.A){ wrap+='<div class="pk">点球：<button data-pkmk="'+m3.mk+'" data-pk="h" class="'+(m3.pkw==="h"?"on":"")+'">'+(m3.A.id?nm(m3.A.id):"上")+'</button><button data-pkmk="'+m3.mk+'" data-pk="a" class="'+(m3.pkw==="a"?"on":"")+'">'+(m3.B.id?nm(m3.B.id):"下")+'</button></div>'; }
+      wrap+='</div></div>';
+    }
+  });
+  document.getElementById("wc-bracket").innerHTML=wrap;
+}
+
+function renderBanner(R){
+  var b=document.getElementById("wc-banner");
+  if(!R.allComplete){ b.className=""; b.innerHTML="⚠ 小组赛尚未全部结束：对阵（含小组第三名落位）为按当前比分的实时推演，会随比分变化。"; }
+  else { b.className="hidden"; }
+}
+
+var pendingFocus=null;
+function captureFocus(){ var el=document.activeElement; if(el&&el.classList&&el.classList.contains("wc-sc")){ var ss=null,se=null; try{ ss=el.selectionStart; se=el.selectionEnd; }catch(e){} pendingFocus={mk:el.dataset.mk,side:el.dataset.side,ss:ss,se:se}; } else pendingFocus=null; }
+function restoreFocus(){ if(!pendingFocus) return; var sel='input.wc-sc[data-mk="'+pendingFocus.mk+'"][data-side="'+pendingFocus.side+'"]'; var el=document.querySelector("#wc-scroll "+sel); if(el){ el.focus(); if(pendingFocus.ss!=null){ try{ el.setSelectionRange(pendingFocus.ss,pendingFocus.se); }catch(e){} } } pendingFocus=null; }
+
+function render(){
+  captureFocus();
+  var R=resolveAll();
+  renderBanner(R); renderGroups(R); renderThirds(R); renderBracket(R);
+  restoreFocus();
+}
+var rTimer=null;
+function scheduleRender(){ clearTimeout(rTimer); rTimer=setTimeout(render,160); }
+
+/* ---------- 编辑（事件委托）---------- */
+function setOv(mk,side,val){ var sc=cur(); if(!sc.ov[mk]) sc.ov[mk]={}; sc.ov[mk][side]=val; saveSC(); }
+document.addEventListener("input",function(e){
+  var el=e.target; if(!el.classList||!el.classList.contains("wc-sc")) return;
+  var v=el.value.replace(/[^0-9]/g,""); if(v!==el.value) el.value=v;
+  setOv(el.dataset.mk,el.dataset.side,v);
+  scheduleRender();
+});
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("button[data-pkmk]"); if(!b) return;
+  var mk=b.dataset.pkmk, which=b.dataset.pk, sc=cur();
+  if(!sc.ov[mk]) sc.ov[mk]={};
+  sc.ov[mk].pk = (sc.ov[mk].pk===which? null : which);
+  saveSC(); render();
+});
+
+/* ---------- 联网抓取真实比分 ---------- */
+function setStatus(s){ document.getElementById("wc-status").textContent=s; }
+function fmtTs(ts){ if(!ts) return ""; var d=new Date(ts); return d.getMonth()+1+"/"+d.getDate()+" "+("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2); }
+function getJSON(u){ return fetch(u,{cache:"no-store"}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
+var fetchedOnce=false;
+/* ESPN 公开数据（fifa.world，支持 CORS）：一次性拉取整届赛程结果 */
+var ESPN_URL="https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260611-20260719";
+function matchTeam(team){ if(!team) return null; return teamByName(team.displayName)||teamByName(team.shortDisplayName)||teamByName(team.name)||teamByName(team.location)||teamByName(team.abbreviation); }
+function fetchLive(){
+  setStatus("抓取中…");
+  return getJSON(ESPN_URL).catch(function(){ return getJSON("https://api.allorigins.win/raw?url="+encodeURIComponent(ESPN_URL)); })
+   .then(function(data){
+     if(!data||!data.events) throw 0;
+     var n=0, unmatched=[];
+     data.events.forEach(function(ev){
+       var comp=ev.competitions&&ev.competitions[0]; if(!comp) return;
+       var stt=ev.status&&ev.status.type&&ev.status.type.state;
+       if(stt!=="post"&&stt!=="in") return;            // 仅取已结束/进行中
+       var cs=comp.competitors||[], H=null,A=null;
+       cs.forEach(function(c){ if(c.homeAway==="home")H=c; else if(c.homeAway==="away")A=c; });
+       if((!H||!A)&&cs.length===2){ H=cs[0]; A=cs[1]; }
+       if(!H||!A) return;
+       var hs=H.score, as=A.score;
+       if(hs==null||as==null||hs===""||as===""||isNaN(+hs)||isNaN(+as)) return;
+       var hid=matchTeam(H.team), aid=matchTeam(A.team);
+       if(!hid||!aid){ unmatched.push((H.team&&H.team.displayName)+"/"+(A.team&&A.team.displayName)); return; }
+       var o={}; o[hid]=+hs; o[aid]=+as;
+       if(+hs===+as){ if(H.winner)o.w=hid; else if(A.winner)o.w=aid; }   // 点球胜者
+       BASE[PK(hid,aid)]=o; n++;
+     });
+     BASE_TS=Date.now();
+     LS.set("wc_baseline",BASE); LS.set("wc_baseline_ts",BASE_TS);
+     setStatus("已更新真实比分 "+n+" 场 · "+fmtTs(BASE_TS));
+     if(unmatched.length) console.warn("WC 未匹配球队:",unmatched);
+     render();
+     return true;
+   })
+   .catch(function(){
+     setStatus((BASE_TS?("联网失败，使用缓存 · "+fmtTs(BASE_TS)):"联网失败，可手动输入比分"));
+     return false;
+   });
+}
+
+/* ---------- 情景管理 ---------- */
+function rebuildSelect(){
+  var sel=document.getElementById("wc-scenario"); sel.innerHTML="";
+  SC.forEach(function(s){ var o=document.createElement("option"); o.value=s.id; o.textContent=s.name; if(s.id===ACTIVE) o.selected=true; sel.appendChild(o); });
+}
+function modal(title,val){
+  return new Promise(function(res){
+    var bg=document.getElementById("wc-modal-bg"), inp=document.getElementById("wc-modal-input");
+    document.getElementById("wc-modal-title").textContent=title; inp.value=val||""; bg.classList.remove("hidden"); inp.focus(); inp.select();
+    function done(v){ bg.classList.add("hidden"); ok.onclick=null; cancel.onclick=null; res(v); }
+    var ok=document.getElementById("wc-modal-ok"), cancel=document.getElementById("wc-modal-cancel");
+    ok.onclick=function(){ done(inp.value.trim()||null); };
+    cancel.onclick=function(){ done(null); };
+    inp.onkeydown=function(e){ if(e.key==="Enter") ok.onclick(); if(e.key==="Escape") cancel.onclick(); };
+  });
+}
+function uid(){ return "s"+Date.now()+Math.floor(Math.random()*1000); }
+function attachBar(){
+  document.getElementById("wc-scenario").addEventListener("change",function(e){ ACTIVE=e.target.value; saveSC(); render(); });
+  document.getElementById("wc-new").addEventListener("click",function(){ modal("新建情景（从真实比分开始）","情景 "+(SC.length+1)).then(function(name){ if(!name) return; var s={id:uid(),name:name,ov:{}}; SC.push(s); ACTIVE=s.id; saveSC(); rebuildSelect(); render(); }); });
+  document.getElementById("wc-dup").addEventListener("click",function(){ modal("复制当前情景为",cur().name+" 副本").then(function(name){ if(!name) return; var s={id:uid(),name:name,ov:JSON.parse(JSON.stringify(cur().ov))}; SC.push(s); ACTIVE=s.id; saveSC(); rebuildSelect(); render(); }); });
+  document.getElementById("wc-ren").addEventListener("click",function(){ modal("重命名情景",cur().name).then(function(name){ if(!name) return; cur().name=name; saveSC(); rebuildSelect(); }); });
+  document.getElementById("wc-del").addEventListener("click",function(){ if(SC.length<=1){ alert("至少保留一个情景"); return; } if(!confirm("删除情景「"+cur().name+"」？")) return; SC=SC.filter(function(s){return s.id!==ACTIVE;}); ACTIVE=SC[0].id; saveSC(); rebuildSelect(); render(); });
+  document.getElementById("wc-reset").addEventListener("click",function(){ if(!confirm("清空情景「"+cur().name+"」的所有改动，回到真实比分？")) return; cur().ov={}; saveSC(); render(); });
+  document.getElementById("wc-fetch").addEventListener("click",function(){ fetchLive(); });
+  document.getElementById("wc-export").addEventListener("click",function(){
+    var blob=new Blob([JSON.stringify({v:1,scenarios:SC,active:ACTIVE},null,2)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="worldcup-scenarios.json"; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  });
+  document.getElementById("wc-import").addEventListener("click",function(){ document.getElementById("wc-file").click(); });
+  document.getElementById("wc-file").addEventListener("change",function(e){
+    var f=e.target.files[0]; if(!f) return; var rd=new FileReader();
+    rd.onload=function(){ try{ var d=JSON.parse(rd.result); if(d&&d.scenarios&&d.scenarios.length){ SC=d.scenarios; ACTIVE=(d.active&&SC.filter(function(s){return s.id===d.active;}).length)?d.active:SC[0].id; saveSC(); rebuildSelect(); render(); setStatus("已导入 "+SC.length+" 个情景"); } else alert("文件格式不正确"); }catch(err){ alert("解析失败："+err.message); } };
+    rd.readAsText(f); e.target.value="";
+  });
+}
+
+/* ---------- 视图切换 ---------- */
+function setView(toBracket){
+  var app=document.getElementById("app");
+  app.classList.toggle("bracket-mode",toBracket);
+  document.getElementById("view-board").classList.toggle("active",!toBracket);
+  document.getElementById("view-bracket").classList.toggle("active",toBracket);
+  if(toBracket){
+    render();
+    if(Date.now()-BASE_TS>60000){ fetchLive(); }   // 进入即自动刷新（陈旧时）；离线则 catch 回退缓存
+    else { setStatus("真实比分 · "+fmtTs(BASE_TS)); }
+  }
+}
+
+function init(){
+  rebuildSelect(); attachBar();
+  document.getElementById("view-board").addEventListener("click",function(){ setView(false); });
+  document.getElementById("view-bracket").addEventListener("click",function(){ setView(true); });
+  if(BASE_TS) setStatus("缓存真实比分 · "+fmtTs(BASE_TS));
+}
+init();
+window.WCBracket={render:render,resolveAll:resolveAll,fetchLive:fetchLive,_state:function(){return {SC:SC,ACTIVE:ACTIVE,BASE:BASE};}};
+
+})();
 </script>
 </body>
 </html>
