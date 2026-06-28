@@ -245,6 +245,22 @@ table.wc-3rd{border-collapse:collapse;font-size:12px;min-width:520px}
 .wc-tie .side.lose .nm{opacity:.55}
 .wc-tie .side .nm.tbd{color:var(--muted);font-style:italic}
 .wc-tie .side .prov{color:#ffd479;font-style:normal;margin-left:3px;font-size:10px}
+/* 淘汰赛点选晋级 */
+.koside{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 9px}
+.koside + .koside{border-top:1px solid rgba(255,255,255,.06)}
+.koside .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;display:flex;align-items:center;min-width:0}
+.koside .nm .prov{color:#ffd479;margin-left:3px;font-size:10px}
+.koside .nm .tbd{color:var(--muted);font-style:italic}
+.koside .ko-sc{font-size:13px;font-weight:700;color:var(--btn-text);flex:0 0 auto;min-width:14px;text-align:right}
+.koside .ko-pen{font-size:9px;color:#7ee2a0;margin-left:2px;vertical-align:super}
+.koside.pick{cursor:pointer}
+.koside.pick:hover{background:rgba(255,255,255,.06)}
+.koside.win{background:rgba(63,174,96,.16)}
+.koside.win .nm{font-weight:800;color:#7ee2a0}
+.koside.win .ko-sc{color:#7ee2a0}
+.koside.lose .nm{opacity:.5}
+.koside.lose .ko-sc{opacity:.55;font-weight:600}
+.kohint{font-size:10px;color:var(--muted);padding:3px 9px;border-top:1px solid rgba(255,255,255,.05)}
 .wc-tie .pk{font-size:10px;color:var(--muted);padding:3px 7px;display:flex;gap:6px;align-items:center;border-top:1px solid rgba(255,255,255,.06)}
 .wc-tie .pk button{font-size:10px;padding:2px 7px;border-radius:5px;border:1px solid var(--toolbar-border);background:var(--btn-bg);color:var(--btn-text);cursor:pointer}
 .wc-tie .pk button.on{background:var(--btn-active);border-color:var(--accent);color:#fff}
@@ -377,9 +393,9 @@ table.wc-3rd{border-collapse:collapse;font-size:12px;min-width:520px}
       </div>
       <div id="wc-scroll">
         <div id="wc-banner" class="hidden"></div>
+        <div><div class="wc-h">淘汰赛对阵图</div><div id="wc-bracket-wrap"><div id="wc-bracket"></div></div></div>
         <div><div class="wc-h">小组赛 · 改比分即时推演</div><div id="wc-groups"></div></div>
         <div><div class="wc-h">小组第三名排名 · 前 8 名出线</div><div id="wc-thirds-body"></div></div>
-        <div><div class="wc-h">淘汰赛对阵图</div><div id="wc-bracket-wrap"><div id="wc-bracket"></div></div></div>
       </div>
       <input type="file" id="wc-file" accept="application/json,.json" style="display:none">
       <div class="wc-modal-bg hidden" id="wc-modal-bg">
@@ -1569,18 +1585,19 @@ function resolveAll(){
   }
   KO_SEQ.forEach(function(num){
     var sp=KO[num], A=teamOf(sp.a), B=teamOf(sp.b), mk="K"+num;
-    var hs=(A.id&&B.id)?dispVal(mk,A.id,B.id,"h"):"";
-    var as=(A.id&&B.id)?dispVal(mk,A.id,B.id,"a"):"";
-    var winner=null,loser=null,decided=false,pkw=null,prov=(A.prov||B.prov||!allComplete);
-    if(A.id&&B.id&&hs!==""&&as!==""&&!isNaN(+hs)&&!isNaN(+as)){
-      var H=+hs,Aa=+as;
-      if(H>Aa){winner={id:A.id};loser={id:B.id};decided=true;}
-      else if(H<Aa){winner={id:B.id};loser={id:A.id};decided=true;}
-      else { var o=ov(mk); pkw=o&&o.pk; if(!pkw){ var bgw=BASE[PK(A.id,B.id)]; if(bgw&&bgw.w) pkw=(bgw.w===A.id?"h":(bgw.w===B.id?"a":null)); } if(pkw==="h"){winner={id:A.id};loser={id:B.id};decided=true;} else if(pkw==="a"){winner={id:B.id};loser={id:A.id};decided=true;} }
-    }
+    var both=!!(A.id&&B.id), bg=both?BASE[PK(A.id,B.id)]:null;
+    var realSide=null;                       // 已踢淘汰赛的真实晋级方
+    if(bg){ var gA=bg[A.id],gB=bg[B.id];
+      if(gA>gB) realSide="h"; else if(gB>gA) realSide="a";
+      else if(bg.w) realSide=(bg.w===A.id?"h":(bg.w===B.id?"a":null)); }
+    var o=ov(mk), pickId=o&&o.winId, pickSide=null;   // 用户直接选择的晋级队
+    if(both&&pickId){ if(pickId===A.id) pickSide="h"; else if(pickId===B.id) pickSide="a"; }
+    var effSide=pickSide||realSide;           // 手选优先，其次真实结果
+    var winner=null,loser=null,decided=false,prov=(A.prov||B.prov||!allComplete);
+    if(both&&effSide){ if(effSide==="h"){winner={id:A.id};loser={id:B.id};} else {winner={id:B.id};loser={id:A.id};} decided=true; }
     if(winner){ winner.prov=prov; winners[num]=winner; }
     if(loser){ loser.prov=prov; losers[num]=loser; }
-    ko[num]={A:A,B:B,hs:hs,as:as,decided:decided,pkw:pkw,winner:winner,loser:loser,mk:mk,prov:prov};
+    ko[num]={A:A,B:B,mk:mk,winner:winner,loser:loser,decided:decided,effSide:effSide,realSide:realSide,pickSide:pickSide,realExists:(realSide!=null),changed:!!(pickSide&&pickSide!==realSide),bg:bg,prov:prov};
   });
   return {tables:tables,tr:tr,amap:amap,ko:ko,allComplete:allComplete};
 }
@@ -1630,23 +1647,24 @@ function renderThirds(R){
   document.getElementById("wc-thirds-body").innerHTML=h;
 }
 
-function sideHTML(m,sideKey,teamObj,otherObj,R){
-  var resolved=!!teamObj.id, disabled=!(m.A.id&&m.B.id);
-  var label = resolved ? (dot(teamObj.id)+nm(teamObj.id)+(teamObj.prov?'<span class="prov">?</span>':"")) : '<span class="tbd">'+esc(teamObj.label||"待定")+'</span>';
-  var win = m.decided && m.winner && m.winner.id===teamObj.id;
-  var lose= m.decided && m.loser && m.loser.id===teamObj.id;
-  return '<div class="side'+(win?" win":"")+(lose?" lose":"")+'"><span class="nm">'+label+'</span>'+scInput(m.mk,m.A.id,m.B.id,sideKey,disabled)+'</div>';
+/* 淘汰赛：点选晋级球队（不填比分） */
+function koSide(m,sideKey,teamObj){
+  var resolved=!!teamObj.id, clickable=!!(m.A.id&&m.B.id);
+  var inner = resolved ? (dot(teamObj.id)+nm(teamObj.id)+(teamObj.prov?'<span class="prov">?</span>':"")) : '<span class="tbd">'+esc(teamObj.label||"待定")+'</span>';
+  var win = m.decided && m.effSide===sideKey;
+  var lose= m.decided && m.effSide && m.effSide!==sideKey;
+  var cls="koside"+(win?" win":"")+(lose?" lose":"")+(clickable?" pick":"");
+  var attr = clickable ? ' data-pickmk="'+m.mk+'" data-pickid="'+teamObj.id+'"' : "";
+  var sc = (m.bg && resolved && m.bg[teamObj.id]!=null) ? m.bg[teamObj.id] : "";   // 抓取到的真实比分（只读）
+  var pen = (win && m.bg && m.bg.w) ? '<span class="ko-pen">点</span>' : "";       // 点球胜出标记
+  return '<div class="'+cls+'"'+attr+'><span class="nm">'+inner+'</span><span class="ko-sc">'+sc+pen+'</span></div>';
 }
 function tieHTML(R,num){
   var m=R.ko[num], isFinal=(num===104), isThird=(num===103);
-  var changed=isOvReal(m.mk,m.A.id,m.B.id);
   var lab=isFinal?' · 决赛':(isThird?' · 季军赛':'');
-  var c='<div class="wc-tie'+(isFinal?" final":"")+(isThird?" third-place":"")+'"><div class="num"><span>M'+num+lab+'</span>'+(changed?'<span class="ovb">已改</span>':"")+'</div>';
-  c+=sideHTML(m,"h",m.A,m.B,R)+sideHTML(m,"a",m.B,m.A,R);
-  var s=(m.A.id&&m.B.id)?numScore(m.mk,m.A.id,m.B.id):null;
-  if(s && s.H===s.A){
-    c+='<div class="pk">点球：<button data-pkmk="'+m.mk+'" data-pk="h" class="'+(m.pkw==="h"?"on":"")+'">'+(m.A.id?nm(m.A.id):"上")+'</button><button data-pkmk="'+m.mk+'" data-pk="a" class="'+(m.pkw==="a"?"on":"")+'">'+(m.B.id?nm(m.B.id):"下")+'</button></div>';
-  }
+  var badge=(m.realExists&&m.changed)?'<span class="ovb">已改</span>':"";
+  var c='<div class="wc-tie'+(isFinal?" final":"")+(isThird?" third-place":"")+'"><div class="num"><span>M'+num+lab+'</span>'+badge+'</div>';
+  c+=koSide(m,"h",m.A)+koSide(m,"a",m.B);
   return c+'</div>';
 }
 function renderBracket(R){
@@ -1691,10 +1709,11 @@ document.addEventListener("input",function(e){
   scheduleRender();
 });
 document.addEventListener("click",function(e){
-  var b=e.target.closest&&e.target.closest("button[data-pkmk]"); if(!b) return;
-  var mk=b.dataset.pkmk, which=b.dataset.pk, sc=cur();
-  if(!sc.ov[mk]) sc.ov[mk]={};
-  sc.ov[mk].pk = (sc.ov[mk].pk===which? null : which);
+  var el=e.target.closest&&e.target.closest("[data-pickmk]"); if(!el) return;
+  var mk=el.dataset.pickmk, id=el.dataset.pickid; if(!id) return;
+  var sc=cur(); if(!sc.ov[mk]) sc.ov[mk]={};
+  if(sc.ov[mk].winId===id) delete sc.ov[mk].winId; else sc.ov[mk].winId=id;  // 再点一次=取消
+  if(Object.keys(sc.ov[mk]).length===0) delete sc.ov[mk];
   saveSC(); render();
 });
 
